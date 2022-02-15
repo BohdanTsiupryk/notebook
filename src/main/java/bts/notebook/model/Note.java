@@ -19,4 +19,8 @@ public class Note {
     private String text;
 
     private LocalDateTime date;
+
+    private LocalDateTime deadline;
+
+    private boolean checked;
 }

@@ -27,4 +27,8 @@ public class NoteService {
 
         return repo.save(note);
     }
+
+    public void remove(Long id) {
+        repo.deleteById(id).subscribe();
+    }
 }
