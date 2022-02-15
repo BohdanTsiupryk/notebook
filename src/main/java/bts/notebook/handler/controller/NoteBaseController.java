@@ -17,8 +17,8 @@ public class NoteBaseController {
     private final NoteService noteService;
 
     @GetMapping
-    public Flux<Note> getAll() {
-        return noteService.getAll();
+    public Flux<Note> getAll(@RequestParam(required = false, defaultValue = "false") Boolean checked) {
+        return noteService.getAll(checked);
     }
 
     @GetMapping("/{id}")

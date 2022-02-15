@@ -13,8 +13,13 @@ public class NoteService {
 
     private final NoteRepo repo;
 
-    public Flux<Note> getAll() {
-        return repo.findAll();
+    public Flux<Note> getAll(Boolean checked) {
+        Flux<Note> all = repo.findAll();
+
+        if (!checked) {
+            return all.filter(note -> !note.isChecked());
+        }
+        return all;
     }
 
     public Mono<Note> getOne(Long id) {
