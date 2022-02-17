@@ -36,4 +36,9 @@ public class NoteService {
     public void remove(Long id) {
         repo.deleteById(id).subscribe();
     }
+
+    public Mono<Note> edit(Long id, Note note) {
+        note.setId(id);
+        return repo.save(note);
+    }
 }

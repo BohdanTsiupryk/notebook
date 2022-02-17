@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Comparator;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/note")
@@ -18,7 +20,8 @@ public class NoteBaseController {
 
     @GetMapping
     public Flux<Note> getAll(@RequestParam(required = false, defaultValue = "false") Boolean checked) {
-        return noteService.getAll(checked);
+        return noteService.getAll(checked)
+            .sort(Comparator.comparingLong(Note::getId));
     }
 
     @GetMapping("/{id}")
@@ -29,6 +32,11 @@ public class NoteBaseController {
     @PostMapping
     public Mono<Note> add(@RequestBody Note note) {
         return noteService.add(note);
+    }
+
+    @PostMapping("/{id}")
+    public Mono<Note> save(@PathVariable Long id, @RequestBody Note note) {
+        return noteService.edit(id, note);
     }
 
     @DeleteMapping("/{id}")
